@@ -18,6 +18,8 @@ function NewRezervationModal() {
         setIsEditing,
         currentRoomRezervations,
         currentRezervationNo,
+        setCurrentRoomRezervations,
+        setCurrentRezervationNo,
     } = useGlobalContext();
 
     const formData_initial = {
@@ -29,7 +31,6 @@ function NewRezervationModal() {
     };
 
     const [formData, setFormData] = useState(formData_initial);
-    console.log(formData);
 
     const { floor, id } = currentRoom;
 
@@ -89,10 +90,7 @@ function NewRezervationModal() {
             return;
         }
 
-        if (
-            !isEditing &&
-            checkAnyRezervationBetweenTheseDates(checkin, checkout)
-        ) {
+        if (checkAnyRezervationBetweenTheseDates(checkin, checkout)) {
             const msg =
                 "Seçmiş olduğunuz tarih aralığında, odada rezervasyon gözükmektedir. Kontrol ediniz !! ";
             setIsMessageShow(true);
@@ -118,7 +116,7 @@ function NewRezervationModal() {
                                                 ) {
                                                     return formData;
                                                 } else {
-                                                    return roomID;
+                                                    return obj;
                                                 }
                                             },
                                         ),
@@ -133,42 +131,66 @@ function NewRezervationModal() {
                     }
                 });
             });
-            return;
+        } else if (!isEditing) {
+            setRooms((floors) => {
+                return floors.map((floorID) => {
+                    if (floorID.floor === floor) {
+                        return {
+                            ...floorID,
+                            rooms: floorID.rooms.map((roomID) => {
+                                if (roomID.id === id) {
+                                    return {
+                                        ...roomID,
+                                        rezervations: roomID.rezervations
+                                            ? [
+                                                  ...roomID.rezervations,
+                                                  {
+                                                      ...formData,
+                                                      no: currentRezervationNo,
+                                                  },
+                                              ]
+                                            : [
+                                                  {
+                                                      ...formData,
+                                                      no: currentRezervationNo,
+                                                  },
+                                              ],
+                                    };
+                                } else {
+                                    return roomID;
+                                }
+                            }),
+                        };
+                    } else {
+                        return floorID;
+                    }
+                });
+            });
         }
 
-        setRooms((floors) => {
-            return floors.map((floorID) => {
-                if (floorID.floor === floor) {
-                    return {
-                        ...floorID,
-                        rooms: floorID.rooms.map((roomID) => {
-                            if (roomID.id === id) {
-                                return {
-                                    ...roomID,
-                                    rezervations: roomID.rezervations
-                                        ? [
-                                              ...roomID.rezervations,
-                                              {
-                                                  ...formData,
-                                                  no: rezervationNo,
-                                              },
-                                          ]
-                                        : [{ ...formData, no: rezervationNo }],
-                                };
-                            } else {
-                                return roomID;
-                            }
-                        }),
-                    };
-                } else {
-                    return floorID;
-                }
-            });
-        });
-
+        setIsEditing(false);
         setIsNewRezervationMenuOpen(false);
         setRezervationNo((no) => no + 1);
         setFormData(formData_initial);
+
+        setCurrentRoomRezervations((pre) => {
+            if (pre && pre.length > 0) {
+                if (isEditing) {
+                    return pre.map((obj) => {
+                        if (obj.no === currentRezervationNo) {
+                            return formData;
+                        } else {
+                            return obj;
+                        }
+                    });
+                } else {
+                    return [...pre, formData];
+                }
+            } else {
+                return [formData];
+            }
+        });
+        setCurrentRezervationNo((pre) => pre + 1);
     };
 
     //! ---

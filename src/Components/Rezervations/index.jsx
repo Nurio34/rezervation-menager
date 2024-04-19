@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useGlobalContext } from "../../GlobalApp";
 import { IoClose } from "react-icons/io5";
+
 import Rezervation from "./Rezervation";
 
 function Rezervations() {
@@ -9,10 +10,11 @@ function Rezervations() {
         currentRoomRezervations,
         isRezervationsModalOpen,
         setIsRezervationsModalOpen,
+        setIsNewRezervationMenuOpen,
     } = useGlobalContext();
 
     const { id, floor } = currentRoom;
-    console.log(id);
+
     return (
         <>
             <AnimatePresence>
@@ -34,9 +36,10 @@ function Rezervations() {
                                 className=" absolute top-4 right-4 border border-white rounded-full p-1"
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
-                                onClick={(e) =>
-                                    setIsRezervationsModalOpen(false)
-                                }
+                                onClick={(e) => {
+                                    setIsRezervationsModalOpen(false);
+                                    setIsNewRezervationMenuOpen(false);
+                                }}
                             >
                                 <IoClose />
                             </motion.button>

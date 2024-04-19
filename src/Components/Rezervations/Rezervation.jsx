@@ -1,4 +1,6 @@
 import { FaEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
+
 import { useGlobalContext } from "../../GlobalApp";
 
 function Rezervation({ obj }) {
@@ -6,6 +8,8 @@ function Rezervation({ obj }) {
         setIsNewRezervationMenuOpen,
         setIsEditing,
         setCurrentRezervationNo,
+        setIsBooleanModalOpen,
+        currentRoom,
     } = useGlobalContext();
 
     function formatDate(date) {
@@ -23,22 +27,32 @@ function Rezervation({ obj }) {
 
     return (
         <li className=" bg-white py-2 px-4 rounded-md ">
-            <p className=" flex items-center  ">
+            <p className=" flex items-center gap-2  ">
                 <span className=" text-sm italic font-serif">Rez No</span>
 
-                <span className=" text-sm font-bold text-orange-500 capitalize pl-2">
+                <span className=" text-sm font-bold text-orange-500 capitalize">
                     {obj.no}
                 </span>
 
                 <button
                     className=" border border-black p-1  ml-auto rounded-md"
                     onClick={(e) => {
-                        setIsNewRezervationMenuOpen(true);
-                        setIsEditing(true);
+                        setIsBooleanModalOpen(true);
                         setCurrentRezervationNo(obj.no);
                     }}
                 >
-                    <FaEdit color="orangered" size={24} />
+                    <MdDeleteOutline color="red" size={24} />
+                </button>
+                <button
+                    className=" border border-black p-1   rounded-md"
+                    onClick={(e) => {
+                        setIsNewRezervationMenuOpen(true);
+                        setIsEditing(true);
+                        setCurrentRezervationNo(obj.no);
+                        console.log({ obj, currentRoom });
+                    }}
+                >
+                    <FaEdit color="blue" size={24} />
                 </button>
             </p>
             <p className=" grid grid-cols-[0.2fr,1fr] items-center">

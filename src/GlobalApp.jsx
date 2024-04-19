@@ -5,7 +5,13 @@ const GlobalContext = createContext();
 export const useGlobalContext = () => useContext(GlobalContext);
 
 function GlobalApp({ children }) {
-    const [rooms, setRooms] = useState(Rooms_Data);
+    const Local_Rooms = JSON.parse(localStorage.getItem("rooms"));
+
+    const [rooms, setRooms] = useState(Local_Rooms || Rooms_Data);
+
+    useEffect(() => {
+        localStorage.setItem("rooms", JSON.stringify(rooms));
+    }, [rooms]);
 
     const [rightClickedRoom, setRightClickedRoom] = useState(null);
 
@@ -27,8 +33,16 @@ function GlobalApp({ children }) {
     const [rezervationNo, setRezervationNo] = useState(1);
 
     const [isEditing, setIsEditing] = useState(false);
-    const [currentRezervationNo, setCurrentRezervationNo] = useState(null);
+
+    const Local_RezNo = JSON.parse(localStorage.getItem("Rez_No")) || 1;
+    const [currentRezervationNo, setCurrentRezervationNo] =
+        useState(Local_RezNo);
+    useEffect(() => {
+        localStorage.setItem("Rez_No", JSON.stringify(currentRezervationNo));
+    }, [currentRezervationNo]);
     console.log(currentRezervationNo);
+
+    const [isBooleanModalOpen, setIsBooleanModalOpen] = useState(false);
 
     useEffect(() => {
         const closeContextMenu = () => setRightClickedRoom(null);
@@ -70,6 +84,8 @@ function GlobalApp({ children }) {
                 setIsEditing,
                 currentRezervationNo,
                 setCurrentRezervationNo,
+                isBooleanModalOpen,
+                setIsBooleanModalOpen,
             }}
         >
             {children}

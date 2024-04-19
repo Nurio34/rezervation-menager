@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useGlobalContext } from "../../GlobalApp";
 
 function ContextMenu({ floor, id, anyRezervation }) {
@@ -25,36 +26,40 @@ function ContextMenu({ floor, id, anyRezervation }) {
                 grid gap-1 
             "
         >
-            <button
+            <motion.button
                 type="button"
                 className="  border border-white py-1 px-2 bg-gradient-to-r from-[rgba(255,255,255,0.1)] to-[rgba(255,255,255,1)] rounded-md"
                 onClick={openNewRezervationModal}
+                whileHover={{ x: 1, y: -1 }}
             >
                 New Rezervation
-            </button>
-            <button
+            </motion.button>
+            <motion.button
                 type="button"
                 className="  border border-white py-1 px-2 bg-gradient-to-r from-[rgba(255,255,255,0.1)] to-[rgba(255,255,255,1)] rounded-md"
+                whileHover={{ x: 1, y: -1 }}
             >
                 Check Availablity
-            </button>
-            <button
+            </motion.button>
+            <motion.button
                 type="button"
                 className="  border border-white py-1 px-2 bg-gradient-to-r from-[rgba(255,255,255,0.1)] to-[rgba(255,255,255,1)] rounded-md 
                 disabled:bg-gradient-to-r disabled:from-[rgba(125,125,125,1)] disabled:to-[rgba(125,125,125,0.5)]
                 "
                 disabled={!anyRezervation}
+                whileHover={{ x: 1, y: -1 }}
                 onClick={() => openRezervationsModal(id)}
             >
                 Show Rezervations
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
                 type="button"
                 className="  border border-white py-1 px-2 bg-gradient-to-r from-[rgba(255,255,255,0.1)] to-[rgba(255,255,255,1)] rounded-md"
+                whileHover={{ x: 1, y: -1 }}
             >
                 Setting
-            </button>
+            </motion.button>
         </ul>
     );
 }
