@@ -1,0 +1,15 @@
+.Rooms {
+    .Floor {
+        display: grid;
+        gap: 2rem;
+
+        grid-template-columns: repeat(auto-fit, 75px);
+
+        .Room {
+            box-shadow: 0 0 5px black;
+            border-radius: 5px;
+            aspect-ratio: 16/11;
+            padding: 2px;
+        }
+    }
+}
