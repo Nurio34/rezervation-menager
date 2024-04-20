@@ -8,6 +8,10 @@ function BooleanModal() {
         setIsBooleanModalOpen,
         currentRoom,
         currentRezervationNo,
+        setRooms,
+        rooms,
+        currentRoomRezervations,
+        setCurrentRoomRezervations,
     } = useGlobalContext();
 
     const NoBtn = useRef();
@@ -17,6 +21,38 @@ function BooleanModal() {
             NoBtn.current.focus();
         }
     }, [isBooleanModalOpen]);
+
+    const deleteRezervation = () => {
+        setRooms((rooms) =>
+            rooms.map((floorObj) => {
+                if (floorObj.floor !== currentRoom.floor) {
+                    return floorObj;
+                } else {
+                    return {
+                        ...floorObj,
+                        rooms: floorObj.rooms.map((roomObj) => {
+                            if (roomObj.id !== currentRoom.id) {
+                                return roomObj;
+                            } else {
+                                return {
+                                    ...roomObj,
+                                    rezervations: roomObj.rezervations.filter(
+                                        (rezervation) =>
+                                            rezervation.no !==
+                                            currentRezervationNo,
+                                    ),
+                                };
+                            }
+                        }),
+                    };
+                }
+            }),
+        );
+
+        setCurrentRoomRezervations((pre) => {
+            return pre.filter((obj) => obj.no !== currentRezervationNo);
+        });
+    };
 
     return (
         <>
@@ -51,6 +87,7 @@ function BooleanModal() {
                                 <motion.button
                                     className="py-2 px-4 bg-[green] rounded-md"
                                     onClick={(e) => {
+                                        deleteRezervation();
                                         setIsBooleanModalOpen(false);
                                     }}
                                     whileHover={{ scale: 1.1 }}

@@ -32,25 +32,6 @@ export const Rooms_Data = [
                 id: 106,
             },
 
-            // // {
-            // //     id: 106,
-            // //     rezervations: [
-            // //         {
-            // //             name: "Nuri",
-            // //             checkin: "2024-04-19",
-            // //             checkout: "2024-04-21",
-            // //             detail: "erken giriş",
-            // //             no: "-1",
-            // //         },
-            // //         {
-            // //             name: "Emy",
-            // //             checkin: "2024-04-22",
-            // //             checkout: "2024-04-24",
-            // //             detail: "geç giriş",
-            // //             no: "0",
-            // //         },
-            // //     ],
-            // // },
             {
                 id: 107,
             },

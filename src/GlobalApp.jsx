@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { Rooms_Data } from "./rooms";
+import { Rooms_Data } from "./mockRooms";
 
 const GlobalContext = createContext();
 export const useGlobalContext = () => useContext(GlobalContext);
@@ -30,23 +30,25 @@ function GlobalApp({ children }) {
     const [isRezervationsModalOpen, setIsRezervationsModalOpen] =
         useState(false);
 
-    const [rezervationNo, setRezervationNo] = useState(1);
+    //! ----
+    const Local_RezNo = JSON.parse(localStorage.getItem("Rez_No")) || 1;
+    const [rezervationNo, setRezervationNo] = useState(Local_RezNo);
+    useEffect(() => {
+        localStorage.setItem("Rez_No", JSON.stringify(rezervationNo));
+    }, [rezervationNo]);
+    //! ---
 
     const [isEditing, setIsEditing] = useState(false);
 
-    const Local_RezNo = JSON.parse(localStorage.getItem("Rez_No")) || 1;
-    const [currentRezervationNo, setCurrentRezervationNo] =
-        useState(Local_RezNo);
-    useEffect(() => {
-        localStorage.setItem("Rez_No", JSON.stringify(currentRezervationNo));
-    }, [currentRezervationNo]);
-    console.log(currentRezervationNo);
+    const [currentRezervationNo, setCurrentRezervationNo] = useState(null);
 
     const [isBooleanModalOpen, setIsBooleanModalOpen] = useState(false);
 
     useEffect(() => {
         const closeContextMenu = () => setRightClickedRoom(null);
-        const preventRightClickDefault = (e) => e.preventDefault();
+        const preventRightClickDefault = (e) => {
+            e.preventDefault();
+        };
 
         window.addEventListener("click", closeContextMenu);
         window.addEventListener("contextmenu", preventRightClickDefault);

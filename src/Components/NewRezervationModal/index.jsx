@@ -50,10 +50,16 @@ function NewRezervationModal() {
 
         return (
             rezervations?.some(
-                (obj) => checkin >= obj.checkin && checkin < obj.checkout,
+                (obj) =>
+                    obj.no !== currentRezervationNo &&
+                    checkin >= obj.checkin &&
+                    checkin < obj.checkout,
             ) ||
             rezervations?.some(
-                (obj) => checkin < obj.checkin && checkout > obj.checkin,
+                (obj) =>
+                    obj.no !== currentRezervationNo &&
+                    checkin < obj.checkin &&
+                    checkout > obj.checkin,
             )
         );
     };
@@ -146,13 +152,13 @@ function NewRezervationModal() {
                                                   ...roomID.rezervations,
                                                   {
                                                       ...formData,
-                                                      no: currentRezervationNo,
+                                                      no: rezervationNo,
                                                   },
                                               ]
                                             : [
                                                   {
                                                       ...formData,
-                                                      no: currentRezervationNo,
+                                                      no: rezervationNo,
                                                   },
                                               ],
                                     };
@@ -166,11 +172,11 @@ function NewRezervationModal() {
                     }
                 });
             });
+            setRezervationNo((no) => no + 1);
         }
 
         setIsEditing(false);
         setIsNewRezervationMenuOpen(false);
-        setRezervationNo((no) => no + 1);
         setFormData(formData_initial);
 
         setCurrentRoomRezervations((pre) => {

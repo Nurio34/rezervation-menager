@@ -28,7 +28,9 @@ function ContextMenu({ floor, id, anyRezervation }) {
         >
             <motion.button
                 type="button"
-                className="  border border-white py-1 px-2 bg-gradient-to-r from-[rgba(255,255,255,0.1)] to-[rgba(255,255,255,1)] rounded-md"
+                className="  border border-white py-1 px-2 bg-gradient-to-r from-[rgba(255,255,255,0.1)] to-[rgba(255,255,255,1)] rounded-md 
+                hover:bg-gradient-to-r hover:to-[rgba(255,255,255,0.1)] hover:from-[rgba(255,255,255,1)]
+                "
                 onClick={openNewRezervationModal}
                 whileHover={{ x: 1, y: -1 }}
             >
@@ -36,14 +38,8 @@ function ContextMenu({ floor, id, anyRezervation }) {
             </motion.button>
             <motion.button
                 type="button"
-                className="  border border-white py-1 px-2 bg-gradient-to-r from-[rgba(255,255,255,0.1)] to-[rgba(255,255,255,1)] rounded-md"
-                whileHover={{ x: 1, y: -1 }}
-            >
-                Check Availablity
-            </motion.button>
-            <motion.button
-                type="button"
-                className="  border border-white py-1 px-2 bg-gradient-to-r from-[rgba(255,255,255,0.1)] to-[rgba(255,255,255,1)] rounded-md 
+                className="  border border-white py-1 px-2 bg-gradient-to-r from-[rgba(255,255,255,0.1)] to-[rgba(255,255,255,1)] rounded-md
+                hover:bg-gradient-to-r hover:to-[rgba(255,255,255,0.1)] hover:from-[rgba(255,255,255,1)] 
                 disabled:bg-gradient-to-r disabled:from-[rgba(125,125,125,1)] disabled:to-[rgba(125,125,125,0.5)]
                 "
                 disabled={!anyRezervation}
@@ -52,14 +48,22 @@ function ContextMenu({ floor, id, anyRezervation }) {
             >
                 Show Rezervations
             </motion.button>
-
             <motion.button
+                type="button"
+                className="  border border-white py-1 px-2 bg-gradient-to-r from-[rgba(255,255,255,0.1)] to-[rgba(255,255,255,1)] rounded-md
+                hover:bg-gradient-to-r hover:to-[rgba(255,255,255,0.1)] hover:from-[rgba(255,255,255,1)]"
+                whileHover={{ x: 1, y: -1 }}
+            >
+                Check Availablity
+            </motion.button>
+
+            {/* <motion.button
                 type="button"
                 className="  border border-white py-1 px-2 bg-gradient-to-r from-[rgba(255,255,255,0.1)] to-[rgba(255,255,255,1)] rounded-md"
                 whileHover={{ x: 1, y: -1 }}
             >
                 Setting
-            </motion.button>
+            </motion.button> */}
         </ul>
     );
 }

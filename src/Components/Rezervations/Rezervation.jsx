@@ -49,7 +49,6 @@ function Rezervation({ obj }) {
                         setIsNewRezervationMenuOpen(true);
                         setIsEditing(true);
                         setCurrentRezervationNo(obj.no);
-                        console.log({ obj, currentRoom });
                     }}
                 >
                     <FaEdit color="blue" size={24} />
