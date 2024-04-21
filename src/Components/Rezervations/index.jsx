@@ -11,9 +11,27 @@ function Rezervations() {
         isRezervationsModalOpen,
         setIsRezervationsModalOpen,
         setIsNewRezervationMenuOpen,
+        setCurrentRoomRezervations,
     } = useGlobalContext();
 
     const { id, floor } = currentRoom;
+
+    //! --- SORT REZERVATIONS ---
+    const rezervations = currentRoomRezervations
+        ?.sort((a, b) => {
+            const [aYear, aMonth, aDay] = a.checkin.split("-");
+            const [bYear, bMonth, bDay] = b.checkin.split("-");
+
+            return +aMonth - +bMonth;
+        })
+        ?.sort((a, b) => {
+            const [aYear, aMonth, aDay] = a.checkin.split("-");
+            const [bYear, bMonth, bDay] = b.checkin.split("-");
+
+            if (aMonth === bMonth) {
+                return +aDay - +bDay;
+            }
+        });
 
     return (
         <>
@@ -44,11 +62,14 @@ function Rezervations() {
                                 <IoClose />
                             </motion.button>
                         </h2>
-                        <ul className="w-[clamp(320px,90vw,768px)] grid gap-4">
-                            {currentRoomRezervations.map((obj) => {
+                        <motion.ul
+                            className="w-[clamp(320px,90vw,768px)] grid gap-4"
+                            layout
+                        >
+                            {rezervations.map((obj) => {
                                 return <Rezervation key={obj.no} obj={obj} />;
                             })}
-                        </ul>
+                        </motion.ul>
                     </motion.div>
                 )}
             </AnimatePresence>

@@ -49,18 +49,18 @@ function NewRezervationModal() {
             });
 
         return (
-            rezervations?.some(
-                (obj) =>
-                    obj.no !== currentRezervationNo &&
-                    checkin >= obj.checkin &&
-                    checkin < obj.checkout,
-            ) ||
-            rezervations?.some(
-                (obj) =>
-                    obj.no !== currentRezervationNo &&
-                    checkin < obj.checkin &&
-                    checkout > obj.checkin,
-            )
+            rezervations?.some((obj) => {
+                if (obj.no === currentRezervationNo) {
+                    return;
+                }
+                return checkin >= obj.checkin && checkin < obj.checkout;
+            }) ||
+            rezervations?.some((obj) => {
+                if (obj.no === currentRezervationNo) {
+                    return;
+                }
+                return checkin < obj.checkin && checkout > obj.checkin;
+            })
         );
     };
 
@@ -196,6 +196,7 @@ function NewRezervationModal() {
                 return [formData];
             }
         });
+
         setCurrentRezervationNo((pre) => pre + 1);
     };
 

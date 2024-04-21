@@ -7,6 +7,7 @@ function ContextMenu({ floor, id, anyRezervation }) {
         setRightClickedRoom,
         setCurrentRoom,
         setIsRezervationsModalOpen,
+        setIsCheckAvailabilityModalOpen,
     } = useGlobalContext();
 
     const openNewRezervationModal = () => {
@@ -19,6 +20,12 @@ function ContextMenu({ floor, id, anyRezervation }) {
         setIsRezervationsModalOpen(true);
         setCurrentRoom({ floor, id });
     };
+
+    const openAvailabiltyModal = () => {
+        setIsCheckAvailabilityModalOpen(true);
+        setCurrentRoom({ floor, id });
+    };
+
     return (
         <ul
             open
@@ -38,21 +45,25 @@ function ContextMenu({ floor, id, anyRezervation }) {
             </motion.button>
             <motion.button
                 type="button"
+                disabled={!anyRezervation}
                 className="  border border-white py-1 px-2 bg-gradient-to-r from-[rgba(255,255,255,0.1)] to-[rgba(255,255,255,1)] rounded-md
                 hover:bg-gradient-to-r hover:to-[rgba(255,255,255,0.1)] hover:from-[rgba(255,255,255,1)] 
                 disabled:bg-gradient-to-r disabled:from-[rgba(125,125,125,1)] disabled:to-[rgba(125,125,125,0.5)]
                 "
-                disabled={!anyRezervation}
-                whileHover={{ x: 1, y: -1 }}
+                whileHover={{ x: anyRezervation && 1, y: anyRezervation && -1 }}
                 onClick={() => openRezervationsModal(id)}
             >
                 Show Rezervations
             </motion.button>
             <motion.button
                 type="button"
+                disabled={!anyRezervation}
                 className="  border border-white py-1 px-2 bg-gradient-to-r from-[rgba(255,255,255,0.1)] to-[rgba(255,255,255,1)] rounded-md
-                hover:bg-gradient-to-r hover:to-[rgba(255,255,255,0.1)] hover:from-[rgba(255,255,255,1)]"
-                whileHover={{ x: 1, y: -1 }}
+                hover:bg-gradient-to-r hover:to-[rgba(255,255,255,0.1)] hover:from-[rgba(255,255,255,1)]
+                disabled:bg-gradient-to-r disabled:from-[rgba(125,125,125,1)] disabled:to-[rgba(125,125,125,0.5)]
+                "
+                whileHover={{ x: anyRezervation && 1, y: anyRezervation && -1 }}
+                onClick={openAvailabiltyModal}
             >
                 Check Availablity
             </motion.button>

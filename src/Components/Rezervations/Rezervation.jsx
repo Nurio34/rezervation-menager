@@ -2,6 +2,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 
 import { useGlobalContext } from "../../GlobalApp";
+import { motion } from "framer-motion";
 
 function Rezervation({ obj }) {
     const {
@@ -9,7 +10,6 @@ function Rezervation({ obj }) {
         setIsEditing,
         setCurrentRezervationNo,
         setIsBooleanModalOpen,
-        currentRoom,
     } = useGlobalContext();
 
     function formatDate(date) {
@@ -26,7 +26,7 @@ function Rezervation({ obj }) {
     }
 
     return (
-        <li className=" bg-white py-2 px-4 rounded-md ">
+        <motion.li className=" bg-white py-2 px-4 rounded-md " layout>
             <p className=" flex items-center gap-2  ">
                 <span className=" text-sm italic font-serif">Rez No</span>
 
@@ -90,7 +90,7 @@ function Rezervation({ obj }) {
                     {obj.detail}
                 </span>
             </p>
-        </li>
+        </motion.li>
     );
 }
 

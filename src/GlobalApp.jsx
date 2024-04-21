@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { Rooms_Data } from "./mockRooms";
+import { Rooms_Data } from "./rooms";
+// import { Rooms_Data } from "./mockRooms";
 
 const GlobalContext = createContext();
 export const useGlobalContext = () => useContext(GlobalContext);
@@ -26,6 +27,27 @@ function GlobalApp({ children }) {
     const [msg, setMsg] = useState("");
 
     const [currentRoomRezervations, setCurrentRoomRezervations] = useState([]);
+    //! -- SORT REZERVATIONS
+    useEffect(() => {
+        setCurrentRoomRezervations((currentRoomRezervations) => {
+            return currentRoomRezervations
+                ?.sort((a, b) => {
+                    const [aYear, aMonth, aDay] = a.checkin.split("-");
+                    const [bYear, bMonth, bDay] = b.checkin.split("-");
+
+                    return +aMonth - +bMonth;
+                })
+                ?.sort((a, b) => {
+                    const [aYear, aMonth, aDay] = a.checkin.split("-");
+                    const [bYear, bMonth, bDay] = b.checkin.split("-");
+
+                    if (aMonth === bMonth) {
+                        return +aDay - +bDay;
+                    }
+                });
+        });
+    }, [currentRoomRezervations]);
+    //! -- SORT REZERVATIONS
 
     const [isRezervationsModalOpen, setIsRezervationsModalOpen] =
         useState(false);
@@ -44,17 +66,26 @@ function GlobalApp({ children }) {
 
     const [isBooleanModalOpen, setIsBooleanModalOpen] = useState(false);
 
+    //! ---
+
+    const [isCheckAvailabilityModalOpen, setIsCheckAvailabilityModalOpen] =
+        useState(false);
+
     useEffect(() => {
-        const closeContextMenu = () => setRightClickedRoom(null);
         const preventRightClickDefault = (e) => {
             e.preventDefault();
+            setIsCheckAvailabilityModalOpen(false);
         };
 
-        window.addEventListener("click", closeContextMenu);
+        const closeModals = () => {
+            setRightClickedRoom(null);
+        };
+
+        window.addEventListener("click", closeModals);
         window.addEventListener("contextmenu", preventRightClickDefault);
 
         return () => {
-            window.removeEventListener("click", closeContextMenu);
+            window.removeEventListener("click", closeModals);
             window.removeEventListener("contextmenu", preventRightClickDefault);
         };
     }, []);
@@ -88,6 +119,8 @@ function GlobalApp({ children }) {
                 setCurrentRezervationNo,
                 isBooleanModalOpen,
                 setIsBooleanModalOpen,
+                isCheckAvailabilityModalOpen,
+                setIsCheckAvailabilityModalOpen,
             }}
         >
             {children}

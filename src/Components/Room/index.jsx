@@ -3,6 +3,7 @@ import { useGlobalContext } from "../../GlobalApp";
 import ContextMenu from "../ContextMenu";
 import "./index.scss";
 import { PiShieldWarningFill } from "react-icons/pi";
+import CheckAvailablity from "../CheckAvailablity";
 
 function Room({ floor, room }) {
     const { id } = room;
@@ -12,6 +13,9 @@ function Room({ floor, room }) {
         setRightClickedRoom,
         inspectingDate,
         setCurrentRoomRezervations,
+        isCheckAvailabilityModalOpen,
+        currentRoom,
+        setIsCheckAvailabilityModalOpen,
     } = useGlobalContext();
 
     const [isBusy, setIsBusy] = useState();
@@ -55,6 +59,7 @@ function Room({ floor, room }) {
                 }
                 setRightClickedRoom(id);
                 setCurrentRoomRezervations(rezervations);
+                setIsCheckAvailabilityModalOpen(false);
             }}
         >
             {id}
@@ -71,6 +76,9 @@ function Room({ floor, room }) {
                     id={id}
                     anyRezervation={checkIfAnyRezervationInThisRoom}
                 />
+            )}
+            {currentRoom.id === id && isCheckAvailabilityModalOpen && (
+                <CheckAvailablity floor={floor} id={id} />
             )}
         </li>
     );
