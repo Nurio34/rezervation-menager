@@ -6,6 +6,7 @@ import Calender from "./Components/Calender";
 import Message from "./Components/Message";
 import Rezervations from "./Components/Rezervations";
 import BooleanModal from "./Components/BooleanModal";
+import SearchBox from "./Components/SearchBox";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
             <Message />
             <Rezervations />
             <BooleanModal />
+            <SearchBox />
         </GlobalApp>
     );
 }

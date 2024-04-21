@@ -71,10 +71,49 @@ function GlobalApp({ children }) {
     const [isCheckAvailabilityModalOpen, setIsCheckAvailabilityModalOpen] =
         useState(false);
 
+    //! ---- TODAY'S DATE ---
+
+    const [todaysDate, setTodaysDate] = useState("");
+
+    const today = () => {
+        const today = new Date();
+
+        // Get year, month (0-indexed), and day
+        const year = today.getFullYear();
+        let month = today.getMonth() + 1; // JS months start at 0
+        const day = today.getDate();
+
+        // Pad month and day with zeroes if necessary (single digits)
+        const formattedMonth = month.toString().padStart(2, "0");
+        const formattedDay = day.toString().padStart(2, "0");
+
+        // Combine year, month, and day with separators
+        const formattedDate = `${year}-${formattedMonth}-${formattedDay}`;
+
+        setTodaysDate(formattedDate);
+    };
+
+    useEffect(() => {
+        today();
+    }, [rooms]);
+    //! ---- TODAY'S DATE ---
+
+    //! --- LIGHT & DARK ROOMS ---
+    const [isTwinLight, setIsTwinLight] = useState(false);
+    const [isDoubleLight, setIsDoubleLight] = useState(false);
+    //! --- LIGHT & DARK ROOMS ---
+
+    //! --- SEARH-BOX ---
+    const [isSearchBoxOpen, setIsSearchBoxOpen] = useState(false);
+    const [searchNode, setSearchNode] = useState("");
+    //! --- SEARH-BOX ---
+
     useEffect(() => {
         const preventRightClickDefault = (e) => {
             e.preventDefault();
             setIsCheckAvailabilityModalOpen(false);
+            setIsTwinLight(false);
+            setIsDoubleLight(false);
         };
 
         const closeModals = () => {
@@ -121,6 +160,16 @@ function GlobalApp({ children }) {
                 setIsBooleanModalOpen,
                 isCheckAvailabilityModalOpen,
                 setIsCheckAvailabilityModalOpen,
+                todaysDate,
+                setTodaysDate,
+                isTwinLight,
+                setIsTwinLight,
+                isDoubleLight,
+                setIsDoubleLight,
+                isSearchBoxOpen,
+                setIsSearchBoxOpen,
+                searchNode,
+                setSearchNode,
             }}
         >
             {children}

@@ -20,11 +20,7 @@ function Message() {
                         }}
                         exit={{ x: 1920, opacity: 0 }}
                     >
-                        <motion.div
-                            className=" grid gap-8 absolute top-1/2 left-1/2 - bg-[blue] text-white w-[clamp(320px,90vw,56ch)] px-4 py-12 text-center rounded-lg"
-                            initial={{ x: -150, y: -400 }}
-                            animate={{ y: -150 }}
-                        >
+                        <motion.div className=" grid gap-8 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[blue] text-white w-[clamp(320px,90vw,56ch)] px-4 py-12 text-center rounded-lg">
                             <IoMdWarning
                                 size={32}
                                 color="white"

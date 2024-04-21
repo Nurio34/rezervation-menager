@@ -1,0 +1,23 @@
+.Rezervation {
+    position: relative;
+
+    &::before {
+        content: "DELETE";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        background-color: white;
+        filter: drop-shadow(0 0 2px white) drop-shadow(0 0 4px white)
+            drop-shadow(0 0 6px white) drop-shadow(0 0 8px white)
+            drop-shadow(0 0 10px white) drop-shadow(0 0 12px white);
+        color: red;
+        border: 5px red;
+        font-weight: 900;
+        letter-spacing: 3px;
+        border-style: double;
+        border-radius: 1vw;
+        padding-block: 8px;
+        padding-inline: 3rem;
+        transform: translateY(-50%) rotate(-25deg);
+    }
+}

@@ -11,7 +11,6 @@ function Rezervations() {
         isRezervationsModalOpen,
         setIsRezervationsModalOpen,
         setIsNewRezervationMenuOpen,
-        setCurrentRoomRezervations,
     } = useGlobalContext();
 
     const { id, floor } = currentRoom;

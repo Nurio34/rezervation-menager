@@ -6,7 +6,7 @@ import { PiShieldWarningFill } from "react-icons/pi";
 import CheckAvailablity from "../CheckAvailablity";
 
 function Room({ floor, room }) {
-    const { id } = room;
+    const { id, type } = room;
     const {
         rooms,
         rightClickedRoom,
@@ -16,6 +16,8 @@ function Room({ floor, room }) {
         isCheckAvailabilityModalOpen,
         currentRoom,
         setIsCheckAvailabilityModalOpen,
+        isTwinLight,
+        isDoubleLight,
     } = useGlobalContext();
 
     const [isBusy, setIsBusy] = useState();
@@ -45,6 +47,8 @@ function Room({ floor, room }) {
         checkBusyDates();
     }, [inspectingDate, rooms]);
 
+    //! --- SET LIGHT & DARK ---
+
     return (
         <li
             className={`Room relative ${
@@ -60,6 +64,14 @@ function Room({ floor, room }) {
                 setRightClickedRoom(id);
                 setCurrentRoomRezervations(rezervations);
                 setIsCheckAvailabilityModalOpen(false);
+            }}
+            style={{
+                outline: `${
+                    (isTwinLight && type === "twin") ||
+                    (isDoubleLight && type === "double")
+                        ? "4px solid #bd27bd99"
+                        : ""
+                }  `,
             }}
         >
             {id}

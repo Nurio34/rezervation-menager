@@ -1,11 +1,12 @@
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
-
 import { useGlobalContext } from "../../GlobalApp";
 import { motion } from "framer-motion";
+import "./index.scss";
 
 function Rezervation({ obj }) {
     const {
+        todaysDate,
         setIsNewRezervationMenuOpen,
         setIsEditing,
         setCurrentRezervationNo,
@@ -25,8 +26,20 @@ function Rezervation({ obj }) {
         );
     }
 
+    const checkout = obj.checkout;
+    const pastRezervation = checkout <= todaysDate;
+
     return (
-        <motion.li className=" bg-white py-2 px-4 rounded-md " layout>
+        <motion.li
+            className={` Rezervation py-2 px-4 rounded-md
+            ${
+                pastRezervation
+                    ? "opacity-30 bg-gray-400"
+                    : "bg-white before:hidden"
+            }
+        `}
+            layout
+        >
             <p className=" flex items-center gap-2  ">
                 <span className=" text-sm italic font-serif">Rez No</span>
 
@@ -83,7 +96,7 @@ function Rezervation({ obj }) {
             </p>
             <p className=" grid grid-cols-[0.2fr,1fr]">
                 <span className=" font-semibold italic text-lg font-serif">
-                    Not
+                    Note
                 </span>
                 <span>
                     <span className="pr-2">:</span>
