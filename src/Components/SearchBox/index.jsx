@@ -89,17 +89,18 @@ function SearchBox() {
         });
 
     const SearchboxEl = useRef();
-    const [isSearchBoxMinimized, IsSearchBoxMinimized] = useState(false);
+    const [isSearchBoxMinimized, setIsSearchBoxMinimized] = useState(false);
 
     const minimizeSearchbox = () => {
         if (SearchboxEl.current) {
             const searchbox = SearchboxEl.current;
-            IsSearchBoxMinimized(!isSearchBoxMinimized);
+            setIsSearchBoxMinimized(!isSearchBoxMinimized);
         }
     };
 
     const closeSearchbox = () => {
         setIsSearchBoxOpen(false);
+        setIsSearchBoxMinimized(false);
     };
 
     return (
