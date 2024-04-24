@@ -4,8 +4,13 @@ import { FaRegWindowMinimize } from "react-icons/fa";
 import { useRef, useState } from "react";
 
 function SearchBox() {
-    const { rooms, isSearchBoxOpen, setIsSearchBoxOpen, searchNode } =
-        useGlobalContext();
+    const {
+        rooms,
+        isSearchBoxOpen,
+        setIsSearchBoxOpen,
+        searchNode,
+        setSearchNode,
+    } = useGlobalContext();
 
     const searchedRooms = rooms
         .map((floorObj) => {
@@ -101,6 +106,7 @@ function SearchBox() {
     const closeSearchbox = () => {
         setIsSearchBoxOpen(false);
         setIsSearchBoxMinimized(false);
+        setSearchNode("");
     };
 
     return (
