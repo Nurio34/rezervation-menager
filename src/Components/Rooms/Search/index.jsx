@@ -10,7 +10,10 @@ function Search() {
     };
 
     return (
-        <div className="flex border-2 border-black justify-self-center rounded-[50vw] overflow-hidden min-w-80 ">
+        <div
+            className=" absolute bottom-16 flex justify-self-center rounded-[50vw] overflow-hidden min-w-80 "
+            style={{ boxShadow: "0 0 5px black,0 0 10px black,0 0 15px black" }}
+        >
             <input
                 type="search"
                 name=""
@@ -18,6 +21,11 @@ function Search() {
                 className="py-1 px-4 outline-none grow"
                 placeholder="Search by Name or Note..."
                 onChange={(e) => setSearchNode(e.target.value)}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        handleClick();
+                    }
+                }}
                 value={searchNode}
             />
             <button
