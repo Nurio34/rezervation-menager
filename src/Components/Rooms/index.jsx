@@ -3,6 +3,7 @@ import Floor from "../Floor";
 import DoubleButton from "./DoubleButton";
 import TwinButton from "./TwinButton";
 import Search from "./Search";
+import CheckRoom from "./CheckRoom";
 
 function Rooms() {
     const { rooms } = useGlobalContext();
@@ -15,6 +16,7 @@ function Rooms() {
             <div className="flex justify-center gap-8">
                 <TwinButton />
                 <DoubleButton />
+                <CheckRoom />
             </div>
             <Search />
         </main>
